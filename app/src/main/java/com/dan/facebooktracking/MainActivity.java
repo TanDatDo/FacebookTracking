@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
     /**Pet Database Helper new object*/
     private AppDbHelper mAppDbHelper= new AppDbHelper(this);
+
     //use data binding to find view id (this method replace the findViewbyID method)
+    final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         // find and set OnClickListener to the update_button
-        final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             //find and set Text on the display Text in main activity layout
-            final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-            binding.displayText.setText(
+            TextView display_text= (TextView) findViewById(R.id.display_text);
+            display_text.setText(
                     // Display the total number of rows in the Cursor
                     // (which reflects the total number of times that the users check facebook.)
                     "You have open Facebook for: " + cursor.getCount()+ " time(s)"
