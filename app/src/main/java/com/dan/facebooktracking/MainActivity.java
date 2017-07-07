@@ -28,15 +28,14 @@ public class MainActivity extends AppCompatActivity {
     /**Pet Database Helper new object*/
     private AppDbHelper mAppDbHelper= new AppDbHelper(this);
 
-    //use data binding to find view id (this method replace the findViewbyID method)
-    final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //use data binding to find view id (this method replace the findViewbyID method)
+        final ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         // find and set OnClickListener to the update_button
         binding.updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
