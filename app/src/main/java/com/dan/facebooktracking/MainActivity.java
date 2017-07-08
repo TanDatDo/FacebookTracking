@@ -14,9 +14,6 @@ import com.dan.facebooktracking.data.AppContract.TrackingEntry;
 import com.dan.facebooktracking.data.AppDbHelper;
 import com.dan.facebooktracking.databinding.ActivityMainBinding;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 /*
 * main activity that have a button to update information into database
 * display the total times that users have used facebook
@@ -82,20 +79,9 @@ public class MainActivity extends AppCompatActivity {
      * the pets database.
      */
     public void displayDatabaseInfo() {
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mAppDbHelper.getReadableDatabase();
-
-        //define the projection which include all column of the database
-        String[] projection = {
-                TrackingEntry._ID,
-                TrackingEntry.COLUMN_USERNAME,
-                TrackingEntry.COLUMN_CHECKING_ON
-        };
-
-        // Perform this raw SQL query "SELECT * FROM pets"
-        // to get a Cursor that contains all rows from the pets table.
-        Cursor cursor = db.query(TrackingEntry.TABLE_NAME, projection,
-                null, null, null, null, null);
+        //Create a new cursor object which select all the rows and columns of the tracking table
+        //of the Tracking database
+        Cursor cursor= AppDbHelper.readDatabaseInfo(this);
 
         /* codes used to show the info of the last check on facbook
              */
@@ -107,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             // get the String which show the time when the users last checked facebook
             String time=cursor.getString(timeColumnIndex);
 
-
             //find and set Text on the display Text in main activity layout
             TextView display_text= (TextView) findViewById(R.id.display_text);
             display_text.setText(
@@ -116,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                     "You have open Facebook for: " + cursor.getCount()+ " time(s)"
                             //display the last time the users using facebook
                     +"\n" + "The last time you check facebook was at " + time );
-
         } finally {
             //close the cursor
             cursor.close();
