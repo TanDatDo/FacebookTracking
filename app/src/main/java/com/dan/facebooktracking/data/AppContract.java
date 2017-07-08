@@ -1,6 +1,7 @@
 package com.dan.facebooktracking.data;
 
 import android.provider.BaseColumns;
+import com.dan.facebooktracking.data.AppDbHelper;
 
 /**
  * //Contract class define constant for table name, all column names

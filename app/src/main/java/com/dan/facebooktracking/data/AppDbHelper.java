@@ -1,6 +1,7 @@
 package com.dan.facebooktracking.data;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.dan.facebooktracking.data.AppContract.TrackingEntry;
@@ -31,6 +32,33 @@ public class AppDbHelper extends SQLiteOpenHelper {
     public AppDbHelper(Context context) {
         super(context, DATA_BASE_NAME, null, DATA_BASE_VERSION);
     }
+
+
+    /*
+    * the method returns new Cursor object which select all the columns and rows
+    * from the tracking table within the tracking.db database
+     */
+    public static final Cursor readDatabaseInfo(Context context){
+
+        // Create and/or open a database to read from it
+        AppDbHelper mAppDbHelper = new AppDbHelper(context);
+        SQLiteDatabase db = mAppDbHelper.getReadableDatabase();
+
+        //define the projection which include all column of the database
+        String[] projection = {
+                TrackingEntry._ID,
+                TrackingEntry.COLUMN_USERNAME,
+                TrackingEntry.COLUMN_CHECKING_ON
+        };
+
+        // Perform this raw SQL query "SELECT * FROM pets"
+        // to get a Cursor that contains all rows from the pets table.
+        Cursor cursor = db.query(TrackingEntry.TABLE_NAME, projection,
+                null, null, null, null, null);
+        return cursor;
+    }
+
+
 
     /**
      * This is called when the database is created for the first time.
